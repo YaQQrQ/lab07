@@ -1,5 +1,4 @@
 michel@MichelUbuntu:~$ export GITHUB_USERNAME=MichelsonIU815
-michel@MichelUbuntu:~$ export GITHUB_TOKEN=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
 michel@MichelUbuntu:~$ cd ${GITHUB_USERNAME}/workspace
 michel@MichelUbuntu:~/MichelsonIU815/workspace$ pushd .
 ~/MichelsonIU815/workspace ~/MichelsonIU815/workspace
