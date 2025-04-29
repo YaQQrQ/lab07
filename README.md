@@ -1,95 +1,209 @@
 michel@MichelUbuntu:~$ export GITHUB_USERNAME=MichelsonIU815
-michel@MichelUbuntu:~$ alias gsed=sed
+michel@MichelUbuntu:~$ export GITHUB_EMAIL=dmtmikel@mail.ru
+michel@MichelUbuntu:~$ alias edit=nano
+michel@MichelUbuntu:~$  alias gsed=sed 
 michel@MichelUbuntu:~$ cd ${GITHUB_USERNAME}/workspace
 michel@MichelUbuntu:~/MichelsonIU815/workspace$ pushd .
 ~/MichelsonIU815/workspace ~/MichelsonIU815/workspace
 michel@MichelUbuntu:~/MichelsonIU815/workspace$ source scripts/activate
-michel@MichelUbuntu:~/MichelsonIU815/workspace$ git clone https://github.com/${GITHUB_USERNAME}/lab04 projects/lab05
-fatal: целевой путь «projects/lab05» уже существует и не является пустым каталогом.
-michel@MichelUbuntu:~/MichelsonIU815/workspace$ git clone https://github.com/${GITHUB_USERNAME}/lab04 projects/lab05
-Клонирование в «projects/lab05»...
-remote: Enumerating objects: 39, done.
-remote: Counting objects: 100% (39/39), done.
-remote: Compressing objects: 100% (27/27), done.
-remote: Total 39 (delta 10), reused 32 (delta 6), pack-reused 0 (from 0)
-Получение объектов: 100% (39/39), 10.74 КиБ | 268.00 КиБ/с, готово.
-Определение изменений: 100% (10/10), готово.
-michel@MichelUbuntu:~/MichelsonIU815/workspace$ cd projects/lab05
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git remote remove origin
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ mkdir third-party
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git submodule add https://github.com/google/googletest third-party/gtest
-Клонирование в «/home/michel/MichelsonIU815/workspace/projects/lab05/third-party/gtest»...
-remote: Enumerating objects: 27973, done.
-remote: Counting objects: 100% (165/165), done.
-remote: Compressing objects: 100% (112/112), done.
-remote: Total 27973 (delta 95), reused 59 (delta 49), pack-reused 27808 (from 5)
-Получение объектов: 100% (27973/27973), 13.92 МиБ | 3.85 МиБ/с, готово.
-Определение изменений: 100% (20700/20700), готово.
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ cd third-party/gtest && git checkout release-1.8.1 && cd ../..
-Примечание: переключение на «release-1.8.1».
-
-Вы сейчас в состоянии «отсоединённого указателя HEAD». Можете осмотреться,
-внести экспериментальные изменения и зафиксировать их, также можете
-отменить любые коммиты, созданные в этом состоянии, не затрагивая другие
-ветки, переключившись обратно на любую ветку.
-
-Если хотите создать новую ветку для сохранения созданных коммитов, можете
-сделать это (сейчас или позже), используя команду switch с параметром -c.
-Например:
-
-  git switch -c <новая-ветка>
-
-Или отмените эту операцию с помощью:
-
-  git switch -
-
-Отключите этот совет, установив переменную конфигурации
-advice.detachedHead в значение false
-
-HEAD сейчас на 2fe3bd99 Merge pull request #1433 from dsacre/fix-clang-warnings
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git add third-party/gtest
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git commit -m"added gtest framework"
-[master ddd6d4f] added gtest framework
- 2 files changed, 4 insertions(+)
- create mode 100644 .gitmodules
- create mode 160000 third-party/gtest
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ gsed -i '/option(BUILD_EXAMPLES "Build examples" OFF)/a\
-> option(BUILD_TESTS "Build tests" OFF)
+michel@MichelUbuntu:~/MichelsonIU815/workspace$ git clone https://github.com/${GITHUB_USERNAME}/lab05 projects/lab06
+Клонирование в «projects/lab06»...
+remote: Enumerating objects: 52, done.
+remote: Counting objects: 100% (52/52), done.
+remote: Compressing objects: 100% (30/30), done.
+remote: Total 52 (delta 15), reused 48 (delta 14), pack-reused 0 (from 0)
+Получение объектов: 100% (52/52), 17.08 КиБ | 672.00 КиБ/с, готово.
+Определение изменений: 100% (15/15), готово.
+michel@MichelUbuntu:~/MichelsonIU815/workspace$ cd projects/lab06
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ git remote remove origin
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_STRING "v\${PRINT_VERSION}")
 > ' CMakeLists.txt
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ cat >> CMakeLists.txt <<EOF
-> if(BUILD_TESTS)
-  enable_testing()
-  add_subdirectory(third-party/gtest)
-  file(GLOB \${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
-  add_executable(check \${\${PROJECT_NAME}_TEST_SOURCES})
-  target_link_libraries(check \${PROJECT_NAME} gtest_main)
-  add_test(NAME check COMMAND check)
-endif()
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION\
+>   \${PRINT_VERSION_MAJOR}.\${PRINT_VERSION_MINOR}.\${PRINT_VERSION_PATCH}.\${PRINT_VERSION_TWEAK})
+> ' CMakeLists.txt
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_TWEAK 0)
+> ' CMakeLists.txt
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_PATCH 0)
+> ' CMakeLists.txt
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_MINOR 1)
+> ' CMakeLists.txt
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_MAJOR 0)
+> ' CMakeLists.txt
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ git diff
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 89739e7..7497219 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,6 +7,13 @@ option(BUILD_EXAMPLES "Build examples" OFF)
+ option(BUILD_TESTS "Build tests" OFF)
+ 
+ project(print)
++set(PRINT_VERSION_MAJOR 0)
++set(PRINT_VERSION_MINOR 1)
++set(PRINT_VERSION_PATCH 0)
++set(PRINT_VERSION_TWEAK 0)
++set(PRINT_VERSION
++  ${PRINT_VERSION_MAJOR}.${PRINT_VERSION_MINOR}.${PRINT_VERSION_PATCH}.${PRINT_VERSION_TWEAK})
++set(PRINT_VERSION_STRING "v${PRINT_VERSION}")
+ 
+ add_library(print STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/print.cpp)
+ 
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ touch DESCRIPTION && edit DESCRIPTION
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ touch ChangeLog.md
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ export DATE="`LANG=en_US date +'%a %b %d %Y'`"
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cat > ChangeLog.md <<EOF
+> * ${DATE} ${GITHUB_USERNAME} <${GITHUB_EMAIL}> 0.1.0.0
+> - Initial RPM release
 > EOF
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ mkdir tests
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ cat > tests/test1.cpp <<EOF
-> #include <print.hpp>
-
-#include <gtest/gtest.h>
-
-TEST(Print, InFileStream)
-{
-  std::string filepath = "file.txt";
-  std::string text = "hello";
-  std::ofstream out{filepath};
-
-  print(text, out);
-  out.close();
-
-  std::string result;
-  std::ifstream in{filepath};
-  in >> result;
-
-  EXPECT_EQ(result, text);
-}
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cat > CPackConfig.cmake <<EOF
+> include(InstallRequiredSystemLibraries)
 > EOF
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ cmake -H. -B_build -DBUILD_TESTS=ON
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cat >> CPackConfig.cmake <<EOF
+> set(CPACK_PACKAGE_CONTACT ${GITHUB_EMAIL})
+set(CPACK_PACKAGE_VERSION_MAJOR \${PRINT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR \${PRINT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH \${PRINT_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION_TWEAK \${PRINT_VERSION_TWEAK})
+set(CPACK_PACKAGE_VERSION \${PRINT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_FILE \${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION)
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "static C++ library for printing")
+> EOF
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cat >> CPackConfig.cmake <<EOF
+> set(CPACK_RESOURCE_FILE_LICENSE \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
+set(CPACK_RESOURCE_FILE_README \${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+> EOF
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cat >> CPackConfig.cmake <<EOF
+> set(CPACK_RPM_PACKAGE_NAME "print-devel")
+set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+set(CPACK_RPM_PACKAGE_GROUP "print")
+set(CPACK_RPM_CHANGELOG_FILE \${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
+set(CPACK_RPM_PACKAGE_RELEASE 1)
+> EOF
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$  cat >> CPackConfig.cmake <<EOF
+> 
+set(CPACK_DEBIAN_PACKAGE_NAME "libprint-dev")
+set(CPACK_DEBIAN_PACKAGE_PREDEPENDS "cmake >= 3.0")
+set(CPACK_DEBIAN_PACKAGE_RELEASE 1)
+> EOF
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cat >> CPackConfig.cmake <<EOF
+> include(CPack)
+> EOF
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cat >> CMakeLists.txt <<EOF
+> include(CPackConfig.cmake)
+> EOF
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ gsed -i 's/lab05/lab06/g' README.md
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ git add .
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ git commit -m"added cpack config"
+[master fe1ac66] added cpack config
+ 5 files changed, 77 insertions(+), 46 deletions(-)
+ create mode 100644 CPackConfig.cmake
+ create mode 100644 ChangeLog.md
+ create mode 100644 DESCRIPTION
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ git tag v0.1.0.0
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$  git push origin master --tags
+Username for 'https://github.com': MichelsonIU815     
+Password for 'https://MichelsonIU815@github.com': 
+Перечисление объектов: 58, готово.
+Подсчет объектов: 100% (58/58), готово.
+При сжатии изменений используется до 12 потоков
+Сжатие объектов: 100% (35/35), готово.
+Запись объектов: 100% (58/58), 18.25 КиБ | 6.08 МиБ/с, готово.
+Всего 58 (изменений 18), повторно использовано 49 (изменений 15), повторно использовано пакетов 0
+remote: Resolving deltas: 100% (18/18), done.
+remote: error: GH013: Repository rule violations found for refs/tags/v0.1.0.0.
+remote: 
+remote: - GITHUB PUSH PROTECTION
+remote:   —————————————————————————————————————————
+remote:     Resolve the following violations before pushing again
+remote: 
+remote:     - Push cannot contain secrets
+remote: 
+remote:     
+remote:      (?) Learn how to resolve a blocked push
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push
+remote:     
+remote:     
+remote:       —— GitHub Personal Access Token ——————————————————————
+remote:        locations:
+remote:          - commit: 3dbefd07df45839aa845f4053ff6222de4a836ba
+remote:            path: README.md:2
+remote:     
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.
+remote:        https://github.com/MichelsonIU815/lab06/security/secret-scanning/unblock-secret/2ugS4G2NtoUnRkWd6eW7QI85vCr
+remote:     
+remote: 
+remote: 
+To https://github.com/MichelsonIU815/lab06
+ ! [rejected]        master -> master (fetch first)
+ ! [remote rejected] v0.1.0.0 -> v0.1.0.0 (push declined due to repository rule violations)
+error: не удалось отправить некоторые ссылки в «https://github.com/MichelsonIU815/lab06»
+подсказка: Updates were rejected because the remote contains work that you do not
+подсказка: have locally. This is usually caused by another repository pushing to
+подсказка: the same ref. If you want to integrate the remote changes, use
+подсказка: 'git pull' before pushing again.
+подсказка: See the 'Note about fast-forwards' in 'git push --help' for details.
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$  git push origin master --tags
+Username for 'https://github.com': MichelsonIU815
+Password for 'https://MichelsonIU815@github.com': 
+Перечисление объектов: 58, готово.
+Подсчет объектов: 100% (58/58), готово.
+При сжатии изменений используется до 12 потоков
+Сжатие объектов: 100% (35/35), готово.
+Запись объектов: 100% (58/58), 18.25 КиБ | 6.08 МиБ/с, готово.
+Всего 58 (изменений 18), повторно использовано 49 (изменений 15), повторно использовано пакетов 0
+remote: Resolving deltas: 100% (18/18), done.
+To https://github.com/MichelsonIU815/lab06
+ * [new tag]         v0.1.0.0 -> v0.1.0.0
+ ! [rejected]        master -> master (fetch first)
+error: не удалось отправить некоторые ссылки в «https://github.com/MichelsonIU815/lab06»
+подсказка: Updates were rejected because the remote contains work that you do not
+подсказка: have locally. This is usually caused by another repository pushing to
+подсказка: the same ref. If you want to integrate the remote changes, use
+подсказка: 'git pull' before pushing again.
+подсказка: See the 'Note about fast-forwards' in 'git push --help' for details.
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ git pull
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Распаковка объектов: 100% (3/3), 4.68 КиБ | 2.34 МиБ/с, готово.
+Из https://github.com/MichelsonIU815/lab06
+ * [новая ветка]     master     -> origin/master
+У текущей ветки нет информации об отслеживании.
+Пожалуйста, укажите с какой веткой вы хотите слить изменения.
+Для дополнительной информации, смотрите git-pull(1).
+
+    git pull <внешний-репозиторий> <ветка>
+
+Если вы хотите указать информацию о отслеживаемой ветке, выполните:
+
+    git branch --set-upstream-to=origin/<ветка> master
+
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$  git push origin master --tags
+Username for 'https://github.com': MichelsonIU815
+Password for 'https://MichelsonIU815@github.com': 
+To https://github.com/MichelsonIU815/lab06
+ ! [rejected]        master -> master (non-fast-forward)
+error: не удалось отправить некоторые ссылки в «https://github.com/MichelsonIU815/lab06»
+подсказка: Updates were rejected because the tip of your current branch is behind
+подсказка: its remote counterpart. If you want to integrate the remote changes,
+подсказка: use 'git pull' before pushing again.
+подсказка: See the 'Note about fast-forwards' in 'git push --help' for details.
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ git push --force
+Username for 'https://github.com': MichelsonIU815
+Password for 'https://MichelsonIU815@github.com': 
+Всего 0 (изменений 0), повторно использовано 0 (изменений 0), повторно использовано пакетов 0
+To https://github.com/MichelsonIU815/lab06
+ + e9cfb9e...fe1ac66 master -> master (forced update)
+branch 'master' set up to track 'origin/master'.
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cmake -H. -B_build
 CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
   Compatibility with CMake < 3.5 will be removed from a future version of
   CMake.
@@ -110,208 +224,48 @@ CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
-CMake Deprecation Warning at third-party/gtest/CMakeLists.txt:1 (cmake_minimum_required):
-  Compatibility with CMake < 3.5 will be removed from a future version of
-  CMake.
-
-  Update the VERSION argument <min> value or use a ...<max> suffix to tell
-  CMake that the project does not need compatibility with older versions.
-
-
-CMake Deprecation Warning at third-party/gtest/googlemock/CMakeLists.txt:42 (cmake_minimum_required):
-  Compatibility with CMake < 3.5 will be removed from a future version of
-  CMake.
-
-  Update the VERSION argument <min> value or use a ...<max> suffix to tell
-  CMake that the project does not need compatibility with older versions.
-
-
-CMake Deprecation Warning at third-party/gtest/googletest/CMakeLists.txt:49 (cmake_minimum_required):
-  Compatibility with CMake < 3.5 will be removed from a future version of
-  CMake.
-
-  Update the VERSION argument <min> value or use a ...<max> suffix to tell
-  CMake that the project does not need compatibility with older versions.
-
-
-CMake Warning (dev) at third-party/gtest/googletest/cmake/internal_utils.cmake:239 (find_package):
-  Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
-  are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
-  the cmake_policy command to set the policy and suppress this warning.
-
-Call Stack (most recent call first):
-  third-party/gtest/googletest/CMakeLists.txt:84 (include)
-This warning is for project developers.  Use -Wno-dev to suppress it.
-
--- Found PythonInterp: /usr/bin/python3 (found version "3.12.3") 
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
--- Found Threads: TRUE  
--- Configuring done (0.4s)
+-- Configuring done (0.3s)
 -- Generating done (0.0s)
--- Build files have been written to: /home/michel/MichelsonIU815/workspace/projects/lab05/_build
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ cmake --build _build
-[  8%] Building CXX object CMakeFiles/print.dir/sources/print.cpp.o
-[ 16%] Linking CXX static library libprint.a
-[ 16%] Built target print
-[ 25%] Building CXX object third-party/gtest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
-[ 33%] Linking CXX static library libgtest.a
-[ 33%] Built target gtest
-[ 41%] Building CXX object third-party/gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
-[ 50%] Linking CXX static library libgtest_main.a
-[ 50%] Built target gtest_main
-[ 58%] Building CXX object CMakeFiles/check.dir/tests/test1.cpp.o
-[ 66%] Linking CXX executable check
-[ 66%] Built target check
-[ 75%] Building CXX object third-party/gtest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
-[ 83%] Linking CXX static library libgmock.a
-[ 83%] Built target gmock
-[ 91%] Building CXX object third-party/gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
-[100%] Linking CXX static library libgmock_main.a
-[100%] Built target gmock_main
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ cmake --build _build --target test
-Running tests...
-Test project /home/michel/MichelsonIU815/workspace/projects/lab05/_build
-    Start 1: check
-1/1 Test #1: check ............................   Passed    0.00 sec
+-- Build files have been written to: /home/michel/MichelsonIU815/workspace/projects/lab06/_build
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cmake --build _build
+[ 50%] Building CXX object CMakeFiles/print.dir/sources/print.cpp.o
+[100%] Linking CXX static library libprint.a
+[100%] Built target print
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cd _build
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06/_build$ cpack -G "TGZ"
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: print
+CPack: - Install project: print []
+CPack: Create package
+CPack: - package: /home/michel/MichelsonIU815/workspace/projects/lab06/_build/print-0.1.0.0-Linux.tar.gz generated.
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06/_build$ cd ..
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cmake -H. -B_build -DCPACK_GENERATOR="TGZ"
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.5 will be removed from a future version of
+  CMake.
 
-100% tests passed, 0 tests failed out of 1
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
 
-Total Test time (real) =   0.00 sec
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ _build/check
-Running main() from /home/michel/MichelsonIU815/workspace/projects/lab05/third-party/gtest/googletest/src/gtest_main.cc
-[==========] Running 1 test from 1 test case.
-[----------] Global test environment set-up.
-[----------] 1 test from Print
-[ RUN      ] Print.InFileStream
-[       OK ] Print.InFileStream (0 ms)
-[----------] 1 test from Print (0 ms total)
 
-[----------] Global test environment tear-down
-[==========] 1 test from 1 test case ran. (0 ms total)
-[  PASSED  ] 1 test.
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ cmake --build _build --target test -- ARGS=--verbose
-Running tests...
-UpdateCTestConfiguration  from :/home/michel/MichelsonIU815/workspace/projects/lab05/_build/DartConfiguration.tcl
-UpdateCTestConfiguration  from :/home/michel/MichelsonIU815/workspace/projects/lab05/_build/DartConfiguration.tcl
-Test project /home/michel/MichelsonIU815/workspace/projects/lab05/_build
-Constructing a list of tests
-Done constructing a list of tests
-Updating test list for fixtures
-Added 0 tests to meet fixture requirements
-Checking test dependency graph...
-Checking test dependency graph end
-test 1
-    Start 1: check
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/michel/MichelsonIU815/workspace/projects/lab06/_build
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ cmake --build _build --target package
+[100%] Built target print
+Run CPack packaging tool...
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: print
+CPack: - Install project: print []
+CPack: Create package
+CPack: - package: /home/michel/MichelsonIU815/workspace/projects/lab06/_build/print-0.1.0.0-Linux.tar.gz generated.
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ mkdir artifacts
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ mv _build/*.tar.gz artifacts
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ tree artifacts
+artifacts
+└── print-0.1.0.0-Linux.tar.gz
 
-1: Test command: /home/michel/MichelsonIU815/workspace/projects/lab05/_build/check
-1: Working Directory: /home/michel/MichelsonIU815/workspace/projects/lab05/_build
-1: Test timeout computed to be: 10000000
-1: Running main() from /home/michel/MichelsonIU815/workspace/projects/lab05/third-party/gtest/googletest/src/gtest_main.cc
-1: [==========] Running 1 test from 1 test case.
-1: [----------] Global test environment set-up.
-1: [----------] 1 test from Print
-1: [ RUN      ] Print.InFileStream
-1: [       OK ] Print.InFileStream (0 ms)
-1: [----------] 1 test from Print (0 ms total)
-1: 
-1: [----------] Global test environment tear-down
-1: [==========] 1 test from 1 test case ran. (0 ms total)
-1: [  PASSED  ] 1 test.
-1/1 Test #1: check ............................   Passed    0.00 sec
-
-100% tests passed, 0 tests failed out of 1
-
-Total Test time (real) =   0.00 sec
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ gsed -i 's/lab04/lab05/g' README.md
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ gsed -i 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ gsed -i '/cmake --build _build --target install/a\
-> - cmake --build _build --target test -- ARGS=--verbose
-> ' .travis.yml
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git add .travis.yml
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git add tests
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$  git add -p
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 96a361e..89739e7 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 11)
- set(CMAKE_CXX_STANDARD_REQUIRED ON)
- 
- option(BUILD_EXAMPLES "Build examples" OFF)
-+option(BUILD_TESTS "Build tests" OFF)
- 
- project(print)
- 
-(1/2) Индексировать этот блок [y,n,q,a,d,j,J,g,/,e,?]? y
-@@ -34,3 +35,11 @@ install(TARGETS print
- 
- install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
- install(EXPORT print-config DESTINATION cmake)
-+if(BUILD_TESTS)
-+  enable_testing()
-+  add_subdirectory(third-party/gtest)
-+  file(GLOB ${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
-+  add_executable(check ${${PROJECT_NAME}_TEST_SOURCES})
-+  target_link_libraries(check ${PROJECT_NAME} gtest_main)
-+  add_test(NAME check COMMAND check)
-+endif()
-(2/2) Индексировать этот блок [y,n,q,a,d,K,g,/,e,?]? y
-
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git commit -m"added tests"
-[master 0f8f992] added tests
- 3 files changed, 30 insertions(+), 1 deletion(-)
- create mode 100644 tests/test1.cpp
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git push origin master
-Username for 'https://github.com': MichelsonIU815
-Password for 'https://MichelsonIU815@github.com': 
-Перечисление объектов: 49, готово.
-Подсчет объектов: 100% (49/49), готово.
-При сжатии изменений используется до 12 потоков
-Сжатие объектов: 100% (31/31), готово.
-Запись объектов: 100% (49/49), 11.79 КиБ | 5.90 МиБ/с, готово.
-Всего 49 (изменений 14), повторно использовано 36 (изменений 10), повторно использовано пакетов 0
-remote: Resolving deltas: 100% (14/14), done.
-remote: error: GH013: Repository rule violations found for refs/heads/master.
-remote: 
-remote: - GITHUB PUSH PROTECTION
-remote:   —————————————————————————————————————————
-remote:     Resolve the following violations before pushing again
-remote: 
-remote:     - Push cannot contain secrets
-remote: 
-remote:     
-remote:      (?) Learn how to resolve a blocked push
-remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push
-remote:     
-remote:     
-remote:       —— GitHub Personal Access Token ——————————————————————
-remote:        locations:
-remote:          - commit: 3dbefd07df45839aa845f4053ff6222de4a836ba
-remote:            path: README.md:2
-remote:     
-remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.
-remote:        https://github.com/MichelsonIU815/lab05/security/secret-scanning/unblock-secret/2ugMFxXXTUeMFGgLHTdNOxRPzWP
-remote:     
-remote: 
-remote: 
-To https://github.com/MichelsonIU815/lab05
- ! [remote rejected] master -> master (push declined due to repository rule violations)
-error: не удалось отправить некоторые ссылки в «https://github.com/MichelsonIU815/lab05»
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ ^C
-michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab05$ git push origin master
-Username for 'https://github.com': MichelsonIU815
-Password for 'https://MichelsonIU815@github.com': 
-Перечисление объектов: 49, готово.
-Подсчет объектов: 100% (49/49), готово.
-При сжатии изменений используется до 12 потоков
-Сжатие объектов: 100% (31/31), готово.
-Запись объектов: 100% (49/49), 11.79 КиБ | 5.90 МиБ/с, готово.
-Всего 49 (изменений 14), повторно использовано 36 (изменений 10), повторно использовано пакетов 0
-remote: Resolving deltas: 100% (14/14), done.
-remote: 
-remote: Create a pull request for 'master' on GitHub by visiting:
-remote:      https://github.com/MichelsonIU815/lab05/pull/new/master
-remote: 
-To https://github.com/MichelsonIU815/lab05
- * [new branch]      master -> master
+1 directory, 1 file
+michel@MichelUbuntu:~/MichelsonIU815/workspace/projects/lab06$ 
